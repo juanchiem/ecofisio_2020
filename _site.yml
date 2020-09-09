@@ -2,10 +2,13 @@ name: 'ecofisiologia'
 output_dir: docs
 output:
   html_document:
+    df_print: paged
+    lib_dir: site_libs
+    self_contained: no
     toc: true
     toc_float:
-      collapsed: false
-    toc_depth: 2
+     collapsed: false
+     smooth_scroll: false    
     theme: yeti
     highlight: textmate
     css: styles.css
