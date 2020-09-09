@@ -1,0 +1,26 @@
+name: 'ecofisiologia'
+output_dir: docs
+output:
+  html_document:
+    css: style.css
+    theme: flatly
+    df_print: paged
+    lib_dir: site_libs
+    self_contained: no
+    highlight: textmate
+    toc: true
+    toc_float:
+     collapsed: false
+     smooth_scroll: false
+navbar:
+  title: Ecofisiología de cultivos
+  left:
+  - text: Inicio
+    icon: fa fa-home
+    href: index.html
+  - text: Desarrollo
+    icon: fa fa-file-code-o
+    href: 01_desarrollo.html
+  - text: Crecimiento
+    icon: fa fa-file-code-o
+    href: 02_crecimiento.html
