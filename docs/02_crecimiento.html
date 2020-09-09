@@ -11,7 +11,7 @@
 
 
 
-<title>Crecimiento</title>
+<title>02_crecimiento.utf8</title>
 
 <script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -360,13 +360,6 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
-    <span class="fa fa fa fa-home"></span>
-     
-    Inicio
-  </a>
-</li>
-<li>
   <a href="01_desarrollo.html">
     <span class="fa fa fa fa-file-code-o"></span>
      
@@ -392,7 +385,6 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Crecimiento</h1>
 
 </div>
 
@@ -462,7 +454,7 @@ B
 <p>Donde:</p>
 <p>L: índice de área foliar acumulado (<span class="math inline">\(m^{2} m^{-2}\)</span>)</p>
 <p>I: radiación (μmol <span class="math inline">\(m^{-2} seg^{-1}\)</span>) incidente sobre el tope de cada estrato foliar</p>
-<p>Considerando:</p>
+<p>Considerando la ecuación propuesta por <span class="citation">(Monsi and Saeki <a href="#ref-monsi1953light" role="doc-biblioref">1953</a>)</span>:</p>
 <p><span class="math inline">\(ln\frac{I}{I_0} = -k * l\)</span></p>
 <p>Para el caso <span class="math inline">\(A\)</span> tomamos los valores de <span class="math inline">\(L=1, 2\)</span> y sus respectivos valores de <span class="math inline">\(I = 2000, 1000\)</span>.</p>
 <p>(Obviamente se puede tomar cualquier valor de la tabla. Verificar que el resultado siempre es el mismo)</p>
@@ -489,12 +481,18 @@ k_B1</code></pre>
 acumulación de biomasa en función del tiempo. </code></pre>
 <pre class="r"><code>5. a) Disponemos de una ecuación matemática logística que describe la acumulación de materia seca de un cultivo en función de los días desde la emergencia ¿Cómo podríamos estimar la tasa de crecimiento para un día determinado, y la máxima tasa de crecimiento que alcanza el cultivo? </code></pre>
 <pre class="r"><code>b) Disponemos de una ecuación matemática que describe la tasa de acumulación de materia seca de un cultivo en función de los días desde la emergencia ¿Cómo podríamos determinar la biomasa que se acumuló entre dos momentos del ciclo? </code></pre>
-<div id="lectura-de-artículo-científico" class="section level3">
-<h3>Lectura de artículo científico</h3>
+<p><em>Lectura de bibliografía</em></p>
 <hr />
-<p><img src="02_crecimiento_files/paper_andrade.png" /></p>
 <p>Actividad:</p>
-<p>La producción de biomasa de soja es marcadamente inferior a la de maíz. De acuerdo a <span class="citation">@andrade1995analysis</span>: ¿cuánto de esta menor producción es explicado por radiación interceptada, por eficiencia fotosintética del canopeo y por contenido energético del producto?</p>
+<p>La producción de biomasa de soja es marcadamente inferior a la de maíz. De acuerdo a Andrade y col <span class="citation">(<a href="#ref-andrade1995analysis" role="doc-biblioref">1995</a>)</span>: ¿cuánto de esta menor producción es explicado por radiación interceptada, por eficiencia fotosintética del canopeo y por contenido energético del producto?</p>
+<hr />
+<div id="refs" class="references hanging-indent">
+<div id="ref-andrade1995analysis">
+<p>Andrade, Fernando H. 1995. “Analysis of Growth and Yield of Maize, Sunflower and Soybean Grown at Balcarce, Argentina.” <em>Field Crops Research</em> 41 (1): 1–12.</p>
+</div>
+<div id="ref-monsi1953light">
+<p>Monsi, M, and T Saeki. 1953. “The Light Factor in Plant Communities and Its Significance for Dry Matter Production.” <em>Japanese Journal of Botany</em> 14 (1): 22–52.</p>
+</div>
 </div>
 
 

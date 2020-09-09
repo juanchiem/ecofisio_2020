@@ -5,19 +5,16 @@ output:
     df_print: paged
     lib_dir: site_libs
     self_contained: no
-    toc: true
-    toc_float:
-     collapsed: false
-     smooth_scroll: false    
     theme: yeti
     highlight: textmate
     css: styles.css
+bibliography: [citas.bib]
+biblio-style: apalike
+link-citations: yes
+
 navbar:
   title: Ecofisiología de cultivos
   left:
-  - text: Inicio
-    icon: fa fa-home
-    href: index.html
   - text: Desarrollo
     icon: fa fa-file-code-o
     href: 01_desarrollo.html

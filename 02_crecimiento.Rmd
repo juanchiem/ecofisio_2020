@@ -1,4 +1,9 @@
-% Crecimiento
+--- 
+output: html_document
+bibliography: [citas.bib]
+biblio-style: apalike
+link-citations: yes
+---
 
 ```{r setup, include=FALSE}
 #https://www.math.mcgill.ca/yyang/regression/RMarkdown/example.html
@@ -31,7 +36,7 @@ L: índice de área foliar acumulado ($m^{2} m^{-2}$)
 
 I: radiación (μmol $m^{-2} seg^{-1}$) incidente sobre el tope de cada estrato foliar 
 
-Considerando: 
+Considerando la ecuación propuesta por [@monsi1953light]: 
 
 $ln\frac{I}{I_0} = -k * l$
 
@@ -87,12 +92,13 @@ b) Disponemos de una ecuación matemática que describe la tasa de acumulación 
 
 ```
 
-### Lectura de artículo científico 
+*Lectura de bibliografía* 
 
 ---
 
-![](02_crecimiento_files/paper_andrade.png)
-
 Actividad: 
 
-La producción de biomasa de soja es marcadamente inferior a la de maíz. De acuerdo a @andrade1995analysis: ¿cuánto de esta menor producción es explicado por radiación interceptada, por eficiencia fotosintética del canopeo y por contenido energético del producto? 
+La producción de biomasa de soja es marcadamente inferior a la de maíz. De acuerdo a Andrade y col [-@andrade1995analysis]: ¿cuánto de esta menor producción es explicado por radiación interceptada, por eficiencia fotosintética del canopeo y por contenido energético del producto? 
+
+
+---
