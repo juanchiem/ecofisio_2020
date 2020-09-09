@@ -1,5 +1,6 @@
 --- 
 output: html_document
+title: "2 Crecimiento"
 bibliography: [citas.bib]
 biblio-style: apalike
 link-citations: yes
