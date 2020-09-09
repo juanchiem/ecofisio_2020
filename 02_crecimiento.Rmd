@@ -1,8 +1,4 @@
----
-title: "Crecimiento"
-output: html_document
-bibliography: citas.bibtex
----
+% Crecimiento
 
 ```{r setup, include=FALSE}
 #https://www.math.mcgill.ca/yyang/regression/RMarkdown/example.html

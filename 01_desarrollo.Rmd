@@ -1,7 +1,4 @@
----
-title: "Desarrollo"
-output: html_document
----
+% Desarrollo 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

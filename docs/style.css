@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald');
 
 body {
-font-family: 'Roboto Condensed', sans-serif;
+font-family: 'Arial', sans-serif;
 margin-left:2px;
 margin-right:2px;
 margin-top: 20px;
@@ -32,22 +32,22 @@ pre {
 
  
 h1, h2, h3,h4 { 
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Arial', sans-serif;
   padding-bottom: 20px;
   padding-top: 30px;
-  color: #4682b4;
+  color: #04b87f;
  
 } 
  
 .navbar-default {
-    background-color: #006699
+    background-color: #009959
 
 }
 .list-group-item.active {
     z-index: 2;
     color: #ffffff;
-    background-color: #006699;
-    border-color: #006699
+    background-color: #9db0ab;
+    border-color: #9db0ab
 }
 
 blockquote { background-color: #f9f9f9; margin-bottom: 40px;}

@@ -3,7 +3,7 @@ output_dir: docs
 output:
   html_document:
     css: style.css
-    theme: flatly
+    theme: united
     df_print: paged
     lib_dir: site_libs
     self_contained: no
