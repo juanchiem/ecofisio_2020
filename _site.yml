@@ -6,7 +6,7 @@ output:
     toc_float:
       collapsed: false
     toc_depth: 2
-    theme: cosmo
+    theme: yeti
     highlight: textmate
     css: styles.css
 navbar:
