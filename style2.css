@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald');
 
 body {
-font-family: 'Arial', sans-serif;
+font-family: 'Roboto Condensed', sans-serif;
 margin-left:2px;
 margin-right:2px;
 margin-top: 20px;
@@ -32,22 +32,22 @@ pre {
 
  
 h1, h2, h3,h4 { 
-  font-family: 'Arial', sans-serif;
+  font-family: 'Oswald', sans-serif;
   padding-bottom: 20px;
   padding-top: 30px;
-  color: #018c60;
+  color: #4682b4;
  
 } 
  
 .navbar-default {
-    background-color: #050505
+    background-color: #006699
 
 }
 .list-group-item.active {
-    z-index: 1;
+    z-index: 2;
     color: #ffffff;
-    background-color: #527068;
-    border-color: #9db0ab
+    background-color: #006699;
+    border-color: #006699
 }
 
 blockquote { background-color: #f9f9f9; margin-bottom: 40px;}
@@ -94,5 +94,4 @@ blockquote { background-color: #f9f9f9; margin-bottom: 40px;}
 @media only screen and (max-width: 480px) {
 	.span_2_of_2, .span_1_of_2 { width: 100%; }
 }
-
 

@@ -35,18 +35,18 @@ h1, h2, h3,h4 {
   font-family: 'Arial', sans-serif;
   padding-bottom: 20px;
   padding-top: 30px;
-  color: #04b87f;
+  color: #018c60;
  
 } 
  
 .navbar-default {
-    background-color: #009959
+    background-color: #050505
 
 }
 .list-group-item.active {
-    z-index: 2;
+    z-index: 1;
     color: #ffffff;
-    background-color: #9db0ab;
+    background-color: #527068;
     border-color: #9db0ab
 }
 

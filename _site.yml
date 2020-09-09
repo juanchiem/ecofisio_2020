@@ -2,16 +2,13 @@ name: 'ecofisiologia'
 output_dir: docs
 output:
   html_document:
-    css: style.css
-    theme: united
-    df_print: paged
-    lib_dir: site_libs
-    self_contained: no
-    highlight: textmate
     toc: true
     toc_float:
-     collapsed: false
-     smooth_scroll: false
+      collapsed: false
+    toc_depth: 2
+    theme: cosmo
+    highlight: textmate
+    css: styles.css
 navbar:
   title: Ecofisiología de cultivos
   left:
