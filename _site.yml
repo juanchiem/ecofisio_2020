@@ -20,5 +20,5 @@ navbar:
   - text: Crecimiento
     href: 02_crecimiento.html
   right:
-  - icon: fa-github-square
+  - icon: fa-home
     href: https://juanchiem.github.io/blog/
