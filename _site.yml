@@ -13,7 +13,7 @@ biblio-style: apalike
 link-citations: yes
 
 navbar:
-  title: Ecofisiología de cultivos
+  title: Ecofisiología práctica
   left:
   - text: Desarrollo
     icon: fa fa-file-code-o
