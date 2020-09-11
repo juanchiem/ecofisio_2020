@@ -17,9 +17,7 @@ theme_set(theme_minimal())
 ```
 
 
-```{r eval=FALSE}
 1. Calcule el coeficiente de extinción lumínica (k) para los canopeos de los cultivos A y B en función de los datos proporcionados. 
-```
 
 ```{r echo=FALSE}
 dat <-
@@ -108,17 +106,20 @@ ggplot(data.frame(x = c(0, 5)), aes(x)) +
 
 Ejemplo de k bajos es el maíz (canopias erectófilas dejan pasar más luz. k= 0.3 aprox), mientras que canopias planófilas, como el girasol, presentan coeficientes más altos (ej. k= 1,5).
 
+--- 
 
-```{r eval=FALSE}
 5. a) Disponemos de una ecuación matemática logística que describe la acumulación de materia seca de un cultivo en función de los días desde la emergencia ¿Cómo podríamos estimar la tasa de crecimiento para un día determinado, y la máxima tasa de crecimiento que alcanza el cultivo? 
-```
 
 
 A continuación visualizaremos la curva de acumulación de materia seca de un cultivo:
 (nótese que esto deberia realizarse por medio de la evaluación empírica de muchos puntos en el tiempo de medición de MS, y luego la estimación de los parámetros. Para fines didácticos, presentamos una función ya con sus parámetros estimados)
 
+f(x) = asintota / (1 + exp((punto_medio - x) * escala))
+
 $asintota = 8000$
+
 $punto\_medio = 70$
+
 $escala = 0.1$
 
 ```{r, eval=FALSE}

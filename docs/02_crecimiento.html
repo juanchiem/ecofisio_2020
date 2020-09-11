@@ -308,7 +308,9 @@ $(document).ready(function () {
 </div>
 
 
-<pre class="r"><code>1. Calcule el coeficiente de extinción lumínica (k) para los canopeos de los cultivos A y B en función de los datos proporcionados. </code></pre>
+<ol style="list-style-type: decimal">
+<li>Calcule el coeficiente de extinción lumínica (k) para los canopeos de los cultivos A y B en función de los datos proporcionados.</li>
+</ol>
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -412,11 +414,19 @@ ggplot(data.frame(x = c(0, 5)), aes(x)) +
   labs(x=&quot;IAF&quot;, y = &quot;I/I0&quot;,
        title = &quot;Curva de fracción de RFA Int en el canopeo&quot;,  
        col = &quot;&quot;) </code></pre>
-<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Ejemplo de k bajos es el maíz (canopias erectófilas dejan pasar más luz. k= 0.3 aprox), mientras que canopias planófilas, como el girasol, presentan coeficientes más altos (ej. k= 1,5).</p>
-<pre class="r"><code>5. a) Disponemos de una ecuación matemática logística que describe la acumulación de materia seca de un cultivo en función de los días desde la emergencia ¿Cómo podríamos estimar la tasa de crecimiento para un día determinado, y la máxima tasa de crecimiento que alcanza el cultivo? </code></pre>
+<hr />
+<ol start="5" style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li>Disponemos de una ecuación matemática logística que describe la acumulación de materia seca de un cultivo en función de los días desde la emergencia ¿Cómo podríamos estimar la tasa de crecimiento para un día determinado, y la máxima tasa de crecimiento que alcanza el cultivo?</li>
+</ol></li>
+</ol>
 <p>A continuación visualizaremos la curva de acumulación de materia seca de un cultivo: (nótese que esto deberia realizarse por medio de la evaluación empírica de muchos puntos en el tiempo de medición de MS, y luego la estimación de los parámetros. Para fines didácticos, presentamos una función ya con sus parámetros estimados)</p>
-<p><span class="math inline">\(asintota = 8000\)</span> <span class="math inline">\(punto\_medio = 70\)</span> <span class="math inline">\(escala = 0.1\)</span></p>
+<p>f(x) = asintota / (1 + exp((punto_medio - x) * escala))</p>
+<p><span class="math inline">\(asintota = 8000\)</span></p>
+<p><span class="math inline">\(punto\_medio = 70\)</span></p>
+<p><span class="math inline">\(escala = 0.1\)</span></p>
 <pre class="r"><code># https://rpubs.com/venkatritch/333327
 
 # para visualizar las funciones en ggplot usaremos la siguiente funcion `function()`:
@@ -455,7 +465,7 @@ p2 &lt;- ggplot(data.frame(x = c(0, 120)), aes(x)) +
     limits = c(0, 120), 
     breaks = scales::extended_breaks(Q = c(30, 10)))#+
 p2</code></pre>
-<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre class="r"><code>f3_express &lt;- D(D(f1_expre,&#39;x&#39;),&#39;x&#39;)# derivada 2° de f1
 
 f1_deriv2 &lt;- function(x) -(8000 * (exp((70 - x) * 0.1) * 0.1 * 0.1)/(1 + exp((70 - x) * 
@@ -473,7 +483,7 @@ p3 &lt;- ggplot(data.frame(x = c(0, 120)), aes(x)) +
     limits = c(0, 120), 
     breaks = scales::extended_breaks(Q = c(30, 10))) 
 p3</code></pre>
-<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Respondiendo al inciso b) Cómo podríamos determinar la biomasa que se acumuló entre dos momentos del ciclo usando la función de tasa de acumulación instantánea.</p>
 <pre class="r"><code>df = data.frame(x = seq(1, 120, length.out = 120))
 df$y = f1_deriv(df$x)
@@ -502,7 +512,7 @@ ggplot(df, aes(x, y)) +
             fill = &quot;steelblue&quot;, alpha = 0.5)+
   annotate(&quot;text&quot;, x = 105, y = -Inf, vjust = -2,
            label = round(int_90_120$value,0))</code></pre>
-<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <pre class="r"><code># ggsave(last_plot(), file = &quot;figs/integral.png&quot;, w =5, h = 4)</code></pre>
 <pre class="r"><code>La producción de biomasa de soja es marcadamente inferior a la de maíz. De acuerdo a Andrade y col [-@andrade1995analysis]: ¿cuánto de esta menor producción es explicado por radiación interceptada, por eficiencia fotosintética del canopeo y por contenido energético del producto? </code></pre>
 <hr />
