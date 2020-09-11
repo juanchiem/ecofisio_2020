@@ -4,16 +4,21 @@ title: "2 Crecimiento"
 bibliography: [citas.bib]
 biblio-style: apalike
 link-citations: yes
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
 #https://www.math.mcgill.ca/yyang/regression/RMarkdown/example.html
+#https://link.springer.com/article/10.1007/s40502-018-0400-x 
 knitr::opts_chunk$set(echo = TRUE)
-pacman::p_load(kableExtra)
+pacman::p_load(tidyverse, kableExtra)
+theme_set(theme_minimal())
 ```
 
+
 ```{r eval=FALSE}
-1. Calcule el coeficiente de extinción lumínica para los canopeos a y b en función de los datos proporcionados. 
+1. Calcule el coeficiente de extinción lumínica (k) para los canopeos de los cultivos A y B en función de los datos proporcionados. 
 ```
 
 ```{r echo=FALSE}
@@ -33,13 +38,33 @@ dat %>%
 
 Donde: 
 
-L: índice de área foliar acumulado ($m^{2} m^{-2}$)
+L: índice de área foliar acumulado ($m^{2} m^{-2}$). Es decir, en L=1 la radiación atravesó 1m² de hojas/m² de suelo, y así sucesivamente. L sería un "Delta AF", o sea si usamos la planta entera L=4, 4 m² de AF fueron atravesados (3.
 
-I: radiación (μmol $m^{-2} seg^{-1}$) incidente sobre el tope de cada estrato foliar 
+I: radiación (μmol $m^{-2} seg^{-1}$) incidente sobre el tope de cada estrato foliar (L) 
 
-Considerando la ecuación propuesta por [@monsi1953light]: 
+:::: {.infobox}
+
+La fracción de RFA inerceptada ($fRFA$) y el índice de área foliar ($IAF$) fueron relacionados según Monsi y Saeki [-@monsi1953light] en una función no lineal dada por:  
+
+$fRFA = e^{-k * l}$
+
+reemplazando: 
+
+$\frac{I}{I_0} = e^{-k * l}$
+
+linearizando por medio de aplicación de logaritmo natural (`log` en `R`) a ambos lados de la ecuación, obtenemos: 
+
+$ln\frac{I}{I_0} = ln(e^{-k * l})$
+
+y su equivalencia: 
 
 $ln\frac{I}{I_0} = -k * l$
+
+resolviendo finalmente:
+
+$k = \frac{-log(I/I_0)}{L-L_0}$
+
+::::
 
 Para el caso $A$ tomamos los valores de $L=1, 2$ y sus respectivos valores de $I = 2000, 1000$. 
 
@@ -66,40 +91,153 @@ k_B1 = -log(125/2000)/(3-1)
 k_B1
 ```
 
+Ahora que hemos estimado `k` podremos visualizar ambos canopeos por reemplazo de la ecuación 
+
+```{r}
+fraccion_interceptada_A <- function(x) exp(- k_A1*x)
+fraccion_interceptada_B <- function(x) exp(- k_B1*x)
+
+ggplot(data.frame(x = c(0, 5)), aes(x)) + 
+  stat_function(fun = fraccion_interceptada_A, aes(colour = paste0("k = ", round(k_A1,1))))+ 
+  stat_function(fun = fraccion_interceptada_B, aes(colour = paste0("k = ", round(k_B1,1))))+ 
+  labs(x="IAF", y = "I/I0",
+       title = "Curva de fracción de RFA Int en el canopeo",  
+       col = "") 
+```
+
+
 Ejemplo de k bajos es el maíz (canopias erectófilas dejan pasar más luz. k= 0.3 aprox), mientras que canopias planófilas, como el girasol, presentan coeficientes más altos (ej. k= 1,5).
 
-
-```{r eval=FALSE}
-2. ¿Qué estrategias utilizarían para maximizar la producción de biomasa 
-(kg/ha de materia seca) a lo largo de un ciclo agrícola? 
-```
-
-```{r eval=FALSE}
-3. Expliquen cómo la densidad de plantas y el espaciamiento entre hileras afectan a: i) la intercepción de radiación, ii) el IAF crítico y iii) el tiempo requerido para alcanzar el IAF crítico. 
-```
-
-```{r  eval=FALSE}
-4. Expliquen las diferencias entre maíz, girasol y soja en las curvas de 
-acumulación de biomasa en función del tiempo. 
-```
 
 ```{r eval=FALSE}
 5. a) Disponemos de una ecuación matemática logística que describe la acumulación de materia seca de un cultivo en función de los días desde la emergencia ¿Cómo podríamos estimar la tasa de crecimiento para un día determinado, y la máxima tasa de crecimiento que alcanza el cultivo? 
 ```
 
 
-```{r eval=FALSE}
-b) Disponemos de una ecuación matemática que describe la tasa de acumulación de materia seca de un cultivo en función de los días desde la emergencia ¿Cómo podríamos determinar la biomasa que se acumuló entre dos momentos del ciclo? 
+A continuación visualizaremos la curva de acumulación de materia seca de un cultivo:
+(nótese que esto deberia realizarse por medio de la evaluación empírica de muchos puntos en el tiempo de medición de MS, y luego la estimación de los parámetros. Para fines didácticos, presentamos una función ya con sus parámetros estimados)
 
+$asintota = 8000$
+$punto\_medio = 70$
+$escala = 0.1$
+
+```{r, eval=FALSE}
+# https://rpubs.com/venkatritch/333327
+
+# para visualizar las funciones en ggplot usaremos la siguiente funcion `function()`:
+
+f1 <- function(x) 8000 / (1 + exp((70 - x) * 0.1))
+
+p1 <- ggplot(data.frame(x = c(0, 120)), aes(x)) + 
+  stat_function(fun = f1, col = "red3")+ 
+  labs(x="Dias desde emergencia", y = "kg/ha",
+       title = "Curva de acumulación de MS",  
+       subtitle = "y=f(x)") +
+  scale_x_continuous(
+    name = "Dias", 
+    limits = c(0, 120), 
+    breaks = scales::extended_breaks(Q = c(30, 10)))  
+
+p1
 ```
 
-*Lectura de bibliografía* 
+Para responder a la actividad propuesta, de obtener las tasas de crecimiento instantáneas, derivaremos $f1$: 
 
----
+```{r}
+# para  hacer operaciones de cálculo en R usamos la función `expression`
+f1_expre = expression(8000 / (1 + exp((70 - x) * 0.1)))
+f1_expre
+f2_express <- D(f1_expre, "x") # derivada 1° de f1
 
-Actividad: 
+# Para graficas pasamos de "express" a "function" 
+f1_deriv <- function(x) 8000 * (exp((70 - x) * 0.1) * 0.1)/(1 + exp((70 - x) * 0.1))^2
+# optimize(f1_deriv, interval=c(30, 60), maximum=TRUE)
 
+p2 <- ggplot(data.frame(x = c(0, 120)), aes(x)) + 
+  stat_function(fun = f1_deriv, col= "steelblue") +
+  labs(x="Dias desde emergencia", y = "kg/ha/dia", 
+       title= "Tasa instantánea de crecimiento",  
+       subtitle = "y=f'(x)") +
+  scale_x_continuous(
+    name = "Dias", 
+    limits = c(0, 120), 
+    breaks = scales::extended_breaks(Q = c(30, 10)))#+
+p2
+```
+
+
+```{r}
+f3_express <- D(D(f1_expre,'x'),'x')# derivada 2° de f1
+
+f1_deriv2 <- function(x) -(8000 * (exp((70 - x) * 0.1) * 0.1 * 0.1)/(1 + exp((70 - x) * 
+    0.1))^2 - 8000 * (exp((70 - x) * 0.1) * 0.1) * (2 * (exp((70 - 
+    x) * 0.1) * 0.1 * (1 + exp((70 - x) * 0.1))))/((1 + exp((70 - 
+    x) * 0.1))^2)^2)
+
+p3 <- ggplot(data.frame(x = c(0, 120)), aes(x)) + 
+  stat_function(fun = f1_deriv2, col= "green3") +
+  labs(x="Dias desde emergencia", y = "", 
+       title= "Segunda derivada",  
+       subtitle = "y=f''(x)") +
+  scale_x_continuous(
+    name = "Dias", 
+    limits = c(0, 120), 
+    breaks = scales::extended_breaks(Q = c(30, 10))) 
+p3
+```
+
+
+```{r eval=FALSE, include=FALSE}
+library(patchwork)  
+p1 / p2
+# ggsave(last_plot(), file = "figs/MS_deriv.png", w =4, h = 5)
+
+(p1+geom_vline(xintercept = 70, linetype = "dashed"))/
+  (p2+geom_vline(xintercept = 70, linetype = "dashed"))/
+  (p3+geom_vline(xintercept = 70, linetype = "dashed")+
+     geom_hline(yintercept = 0, col = "grey30"))
+
+ggsave(last_plot(), file = "figs/MS_deriv2.png", w =4, h = 6)
+```
+
+Respondiendo al inciso b) Cómo podríamos determinar la biomasa que se acumuló entre dos momentos del ciclo usando la función de tasa de acumulación instantánea. 
+
+```{r}
+df = data.frame(x = seq(1, 120, length.out = 120))
+df$y = f1_deriv(df$x)
+
+int_30_60 <- integrate(f1_deriv,30,60)
+int_60_90 <- integrate(f1_deriv,60,90)
+int_90_120 <- integrate(f1_deriv,90,120)
+
+ggplot(df, aes(x, y)) + 
+  geom_line()+
+  labs(x="Dias desde emergencia", y = "kg/ha/dia",  
+       title = "Tasa instantanea de crecimiento", 
+       subtitle = "Integral de y=f'(x) para intervalo t1:t2") +
+  scale_x_continuous(
+    limits = c(0, 120), 
+    breaks = scales::extended_breaks(Q = c(30, 10)))+
+  geom_area(data = df[df$x >= 30 & df$x <= 60,], aes(x = x, y = y),
+            fill = "red", alpha = 0.5)+
+  annotate("text", x = 45, y = -Inf, vjust = -2,
+           label = round(int_30_60$value,0))+
+  geom_area(data = df[df$x >= 60 & df$x <= 90,], aes(x = x, y = y),
+            fill = "green3", alpha = 0.5)+
+  annotate("text", x = 75, y = -Inf, vjust = -2,
+           label = round(int_60_90$value,0))+
+  geom_area(data = df[df$x >= 90 & df$x <= 120,], aes(x = x, y = y),
+            fill = "steelblue", alpha = 0.5)+
+  annotate("text", x = 105, y = -Inf, vjust = -2,
+           label = round(int_90_120$value,0))
+
+# ggsave(last_plot(), file = "figs/integral.png", w =5, h = 4)
+```
+
+
+```{r eval=FALSE}
 La producción de biomasa de soja es marcadamente inferior a la de maíz. De acuerdo a Andrade y col [-@andrade1995analysis]: ¿cuánto de esta menor producción es explicado por radiación interceptada, por eficiencia fotosintética del canopeo y por contenido energético del producto? 
+```
 
 
 ---

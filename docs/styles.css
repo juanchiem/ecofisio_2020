@@ -1,3 +1,17 @@
+.infobox {
+  padding: 1em 1em 1em 1em;
+  margin-bottom: 5px;
+  border: 1px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.papyrus {
+  background-image: url("figs/papyrus.png");
+}
+.center {
+  text-align: center;
+}
 
 /*  SECTIONS  */
 .section {
@@ -40,5 +54,4 @@
 @media only screen and (max-width: 480px) {
 	.span_2_of_2, .span_1_of_2 { width: 100%; }
 }
-
 
