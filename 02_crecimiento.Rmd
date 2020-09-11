@@ -62,7 +62,7 @@ $ln\frac{I}{I_0} = -k * l$
 
 resolviendo finalmente:
 
-$k = \frac{-log(I/I_0)}{L-L_0}$
+$k = \frac{-ln(I/I_0)}{L-L_0}$
 
 ::::
 
