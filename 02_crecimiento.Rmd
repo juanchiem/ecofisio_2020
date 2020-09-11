@@ -234,9 +234,9 @@ ggplot(df, aes(x, y)) +
 ```
 
 
-```{r eval=FALSE}
-La producción de biomasa de soja es marcadamente inferior a la de maíz. De acuerdo a Andrade y col [-@andrade1995analysis]: ¿cuánto de esta menor producción es explicado por radiación interceptada, por eficiencia fotosintética del canopeo y por contenido energético del producto? 
-```
+6. La producción de biomasa de soja es marcadamente inferior a la de maíz. De acuerdo a Andrade y col [-@andrade1995analysis]: ¿cuánto de esta menor producción es explicado por radiación interceptada, por eficiencia fotosintética del canopeo y por contenido energético del producto? 
+
+(Por hacer)
 
 
 ---
