@@ -122,9 +122,7 @@ $punto\_medio = 70$
 
 $escala = 0.1$
 
-```{r, eval=FALSE}
-# https://rpubs.com/venkatritch/333327
-
+```{r}
 # para visualizar las funciones en ggplot usaremos la siguiente funcion `function()`:
 
 f1 <- function(x) 8000 / (1 + exp((70 - x) * 0.1))

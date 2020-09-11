@@ -427,9 +427,7 @@ ggplot(data.frame(x = c(0, 5)), aes(x)) +
 <p><span class="math inline">\(asintota = 8000\)</span></p>
 <p><span class="math inline">\(punto\_medio = 70\)</span></p>
 <p><span class="math inline">\(escala = 0.1\)</span></p>
-<pre class="r"><code># https://rpubs.com/venkatritch/333327
-
-# para visualizar las funciones en ggplot usaremos la siguiente funcion `function()`:
+<pre class="r"><code># para visualizar las funciones en ggplot usaremos la siguiente funcion `function()`:
 
 f1 &lt;- function(x) 8000 / (1 + exp((70 - x) * 0.1))
 
@@ -444,6 +442,7 @@ p1 &lt;- ggplot(data.frame(x = c(0, 120)), aes(x)) +
     breaks = scales::extended_breaks(Q = c(30, 10)))  
 
 p1</code></pre>
+<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>Para responder a la actividad propuesta, de obtener las tasas de crecimiento instantáneas, derivaremos <span class="math inline">\(f1\)</span>:</p>
 <pre class="r"><code># para  hacer operaciones de cálculo en R usamos la función `expression`
 f1_expre = expression(8000 / (1 + exp((70 - x) * 0.1)))
