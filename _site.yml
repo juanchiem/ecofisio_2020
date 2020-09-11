@@ -16,8 +16,9 @@ navbar:
   title: Ecofisiología práctica
   left:
   - text: Desarrollo
-    icon: fa fa-file-code-o
     href: 01_desarrollo.html
   - text: Crecimiento
-    icon: fa fa-file-code-o
     href: 02_crecimiento.html
+  right:
+  - icon: fa-github-square
+    href: https://juanchiem.github.io/blog/

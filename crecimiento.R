@@ -1,3 +1,4 @@
+# https://link.springer.com/article/10.1007/s40502-018-0400-x
 # https://rpubs.com/venkatritch/333327
 
 asymptote / (1 + exp((midpoint - age) * scale)))
