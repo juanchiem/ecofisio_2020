@@ -289,7 +289,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://juanchiem.github.io/blog/">
-    <span class="fa fa-github-square"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -372,7 +372,7 @@ B
 </tbody>
 </table>
 <p>Donde:</p>
-<p>L: índice de área foliar acumulado (<span class="math inline">\(m^{2} m^{-2}\)</span>). Es decir, en L=1 la radiación atravesó 1m² de hojas/m² de suelo, y así sucesivamente. L sería un “Delta AF”, o sea si usamos la planta entera L=4, 4 m² de AF fueron atravesados (3.</p>
+<p>L: índice de área foliar acumulado (<span class="math inline">\(m^{2} m^{-2}\)</span>). Es decir, en L=2 la radiación atravesó 1m² de hojas/m² de suelo, ya que se mide al tope del estrato, entonces <span class="math inline">\(L_2 - L_1 = 1 m²\)</span>. L sería un “Delta AF”, o sea si usamos la planta entera L = 1 y 4, 3 m² de AF serían atravesados.</p>
 <p>I: radiación (μmol <span class="math inline">\(m^{-2} seg^{-1}\)</span>) incidente sobre el tope de cada estrato foliar (L)</p>
 <div class="infobox">
 <p>La fracción de RFA inerceptada (<span class="math inline">\(fRFA\)</span>) y el índice de área foliar (<span class="math inline">\(IAF\)</span>) fueron relacionados según Monsi y Saeki <span class="citation">(<a href="#ref-monsi1953light" role="doc-biblioref">1953</a>)</span> en una función no lineal dada por:</p>
@@ -404,15 +404,29 @@ k_A2</code></pre>
 k_B1</code></pre>
 <pre><code>## [1] 1.386294</code></pre>
 <p>Ahora que hemos estimado <code>k</code> podremos visualizar ambos canopeos por reemplazo de la ecuación</p>
+<ul>
+<li>Para los fines prácticos de la visualización de la fracción interceptada generaremos una nueva columna altura de medición de radiación (L0)</li>
+</ul>
 <pre class="r"><code>fraccion_interceptada_A &lt;- function(x) exp(- k_A1*x)
 fraccion_interceptada_B &lt;- function(x) exp(- k_B1*x)
 
-ggplot(data.frame(x = c(0, 5)), aes(x)) + 
-  stat_function(fun = fraccion_interceptada_A, aes(colour = paste0(&quot;k = &quot;, round(k_A1,1))))+ 
+p_k &lt;- 
+  dat %&gt;%
+  mutate(L0 = lag(L, default = 0),  
+         A_frac = A/max(A),
+         B_frac = B/max(B))%&gt;% 
+  ggplot(aes(x = L0)) +
+geom_point(aes(y = A_frac), col = &quot;red3&quot;)+
+geom_point(aes(y = B_frac), col = &quot;steelblue&quot;)+
+  stat_function(fun = fraccion_interceptada_A, 
+                aes(colour = paste0(&quot;k = &quot;, round(k_A1,1))))+ 
   stat_function(fun = fraccion_interceptada_B, aes(colour = paste0(&quot;k = &quot;, round(k_B1,1))))+ 
   labs(x=&quot;IAF&quot;, y = &quot;I/I0&quot;,
        title = &quot;Curva de fracción de RFA Int en el canopeo&quot;,  
-       col = &quot;&quot;) </code></pre>
+       col = &quot;&quot;)+
+  scale_colour_manual(&quot;&quot;, values = c(&quot;red3&quot;, &quot;steelblue&quot;))
+
+p_k </code></pre>
 <p><img src="02_crecimiento_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Ejemplo de k bajos es el maíz (canopias erectófilas dejan pasar más luz. k= 0.3 aprox), mientras que canopias planófilas, como el girasol, presentan coeficientes más altos (ej. k= 1,5).</p>
 <hr />
@@ -441,7 +455,7 @@ p1 &lt;- ggplot(data.frame(x = c(0, 120)), aes(x)) +
     breaks = scales::extended_breaks(Q = c(30, 10)))  
 
 p1</code></pre>
-<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Para responder a la actividad propuesta, de obtener las tasas de crecimiento instantáneas, derivaremos <span class="math inline">\(f1\)</span>:</p>
 <pre class="r"><code># para  hacer operaciones de cálculo en R usamos la función `expression`
 f1_expre = expression(8000 / (1 + exp((70 - x) * 0.1)))
@@ -463,7 +477,7 @@ p2 &lt;- ggplot(data.frame(x = c(0, 120)), aes(x)) +
     limits = c(0, 120), 
     breaks = scales::extended_breaks(Q = c(30, 10)))#+
 p2</code></pre>
-<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code>f3_express &lt;- D(D(f1_expre,&#39;x&#39;),&#39;x&#39;)# derivada 2° de f1
 
 f1_deriv2 &lt;- function(x) -(8000 * (exp((70 - x) * 0.1) * 0.1 * 0.1)/(1 + exp((70 - x) * 
@@ -481,7 +495,7 @@ p3 &lt;- ggplot(data.frame(x = c(0, 120)), aes(x)) +
     limits = c(0, 120), 
     breaks = scales::extended_breaks(Q = c(30, 10))) 
 p3</code></pre>
-<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Respondiendo al inciso b) Cómo podríamos determinar la biomasa que se acumuló entre dos momentos del ciclo usando la función de tasa de acumulación instantánea.</p>
 <pre class="r"><code>df = data.frame(x = seq(1, 120, length.out = 120))
 df$y = f1_deriv(df$x)
@@ -510,7 +524,7 @@ ggplot(df, aes(x, y)) +
             fill = &quot;steelblue&quot;, alpha = 0.5)+
   annotate(&quot;text&quot;, x = 105, y = -Inf, vjust = -2,
            label = round(int_90_120$value,0))</code></pre>
-<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="02_crecimiento_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code># ggsave(last_plot(), file = &quot;figs/integral.png&quot;, w =5, h = 4)</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>La producción de biomasa de soja es marcadamente inferior a la de maíz. De acuerdo a Andrade y col <span class="citation">(<a href="#ref-andrade1995analysis" role="doc-biblioref">1995</a>)</span>: ¿cuánto de esta menor producción es explicado por radiación interceptada, por eficiencia fotosintética del canopeo y por contenido energético del producto?</li>

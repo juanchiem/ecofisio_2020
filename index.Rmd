@@ -1,4 +1,4 @@
-% Ecofisiología para dummies (me!)
+% Ecofisiología
 
 Este es un blog de notas personales donde iré resolviendo los ejercicios práctios del curso de ecofisiología de cultivos de la Fac. de Cs. Agrarias de Balcarce por medio de R. 
 

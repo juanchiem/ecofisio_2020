@@ -36,7 +36,7 @@ dat %>%
 
 Donde: 
 
-L: índice de área foliar acumulado ($m^{2} m^{-2}$). Es decir, en L=1 la radiación atravesó 1m² de hojas/m² de suelo, y así sucesivamente. L sería un "Delta AF", o sea si usamos la planta entera L=4, 4 m² de AF fueron atravesados (3.
+L: índice de área foliar acumulado ($m^{2} m^{-2}$). Es decir, en L=2 la radiación atravesó 1m² de hojas/m² de suelo, ya que se mide al tope del estrato, entonces $L_2 - L_1 = 1 m²$. L sería un "Delta AF", o sea si usamos la planta entera L = 1 y 4, 3 m² de AF serían atravesados.
 
 I: radiación (μmol $m^{-2} seg^{-1}$) incidente sobre el tope de cada estrato foliar (L) 
 
@@ -91,20 +91,69 @@ k_B1
 
 Ahora que hemos estimado `k` podremos visualizar ambos canopeos por reemplazo de la ecuación 
 
+
+* Para los fines prácticos de la visualización de la fracción interceptada generaremos una nueva columna altura de medición de radiación (L0)
+
 ```{r}
 fraccion_interceptada_A <- function(x) exp(- k_A1*x)
 fraccion_interceptada_B <- function(x) exp(- k_B1*x)
 
-ggplot(data.frame(x = c(0, 5)), aes(x)) + 
-  stat_function(fun = fraccion_interceptada_A, aes(colour = paste0("k = ", round(k_A1,1))))+ 
+p_k <- 
+  dat %>%
+  mutate(L0 = lag(L, default = 0),  
+         A_frac = A/max(A),
+         B_frac = B/max(B))%>% 
+  ggplot(aes(x = L0)) +
+geom_point(aes(y = A_frac), col = "red3")+
+geom_point(aes(y = B_frac), col = "steelblue")+
+  stat_function(fun = fraccion_interceptada_A, 
+                aes(colour = paste0("k = ", round(k_A1,1))))+ 
   stat_function(fun = fraccion_interceptada_B, aes(colour = paste0("k = ", round(k_B1,1))))+ 
   labs(x="IAF", y = "I/I0",
        title = "Curva de fracción de RFA Int en el canopeo",  
-       col = "") 
+       col = "")+
+  scale_colour_manual("", values = c("red3", "steelblue"))
+
+p_k 
 ```
 
-
 Ejemplo de k bajos es el maíz (canopias erectófilas dejan pasar más luz. k= 0.3 aprox), mientras que canopias planófilas, como el girasol, presentan coeficientes más altos (ej. k= 1,5).
+
+```{r, include=FALSE, eval=FALSE}
+dat %>% 
+  mutate(A_frac =(1-A_frac)*100,
+         B_frac =(1-B_frac)*100) %>% 
+  ggplot(aes(y = L0)) +
+  geom_point(aes(x = A_frac), col = "red3")+
+  geom_line(aes(x = A_frac), col = "red3")+
+  geom_point(aes(x = B_frac), col = "steelblue")+
+  geom_line(aes(x = B_frac), col = "steelblue")+
+  scale_y_reverse()+  
+  labs(y="IAF atravesado", x = "% de Radiación absorvida acumulada",
+       # title = "Curva de fracción de RFA Int en el canopeo",  
+       col = "")+
+  scale_colour_manual("", values = c("red3", "steelblue"))
+  # stat_function(fun = fraccion_interceptada_A, 
+  #                 aes(colour = paste0("k = ", round(k_A1,1))))+ 
+  # stat_function(fun = fraccion_interceptada_B, aes(colour = paste0("k = ", round(k_B1,1))))+ 
+
+
+dat %>%
+  mutate(
+    # L0 = lag(L, default = 0),  
+         A_frac = A/max(A),
+         B_frac = B/max(B))%>% 
+  ggplot(aes(y = L0)) +
+  geom_point(aes(x = A_frac), col = "red3")+
+  # geom_line(aes(x = A_frac), col = "red3")+
+  geom_point(aes(x = B_frac), col = "steelblue")
+  # geom_line(aes(x = B_frac), col = "steelblue")
+
+p_k +
+  scale_x_reverse()+  
+  # scale_y_reverse()+  
+  coord_flip() 
+```
 
 --- 
 
